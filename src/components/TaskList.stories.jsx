@@ -1,27 +1,21 @@
-
+import PropTypes from 'prop-types';
+import { Provider } from 'react-redux';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 import TaskList from './TaskList';
 
-import * as TaskStories from './Task.stories';
-
-import { Provider } from 'react-redux';
-
-import { configureStore, createSlice } from '@reduxjs/toolkit';
-
-// A super-simple mock of the state of the store
+// Define MockedState
 export const MockedState = {
   tasks: [
-    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
-    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
-    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
-    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
-    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
-    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+    { id: '1', title: 'Task 1', state: 'TASK_INBOX' },
+    { id: '2', title: 'Task 2', state: 'TASK_INBOX' },
+    { id: '3', title: 'Task 3', state: 'TASK_INBOX' },
+    { id: '4', title: 'Task 4', state: 'TASK_INBOX' },
+    { id: '5', title: 'Task 5', state: 'TASK_INBOX' },
+    { id: '6', title: 'Task 6', state: 'TASK_INBOX' },
   ],
-  status: 'idle',
-  error: null,
 };
 
-// A super-simple mock of a redux store
+// A super-simple mock of the state of the store
 const Mockstore = ({ taskboxState, children }) => (
   <Provider
     store={configureStore({
@@ -31,10 +25,10 @@ const Mockstore = ({ taskboxState, children }) => (
           initialState: taskboxState,
           reducers: {
             updateTaskState: (state, action) => {
-              const { id, newTaskState } = action.payload;
+              const { id, newState } = action.payload;
               const task = state.tasks.findIndex((task) => task.id === id);
               if (task >= 0) {
-                state.tasks[task].state = newTaskState;
+                state.tasks[task].state = newState;
               }
             },
           },
@@ -46,70 +40,62 @@ const Mockstore = ({ taskboxState, children }) => (
   </Provider>
 );
 
+Mockstore.propTypes = {
+  taskboxState: PropTypes.shape({
+    tasks: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        state: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+  }).isRequired,
+  children: PropTypes.node.isRequired,
+};
+
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [(story) => <div style={{ margin: '3rem' }}>{story()}</div>],
-  tags: ['autodocs'],
-//   excludeStories is a Storybook configuration field that prevents our mocked state to be treated as a story. 
-//   You can read more about this field in the Storybook documentation (https://storybook.js.org/docs/api/csf).
+  decorators: [(story) => <Mockstore taskboxState={MockedState}>{story()}</Mockstore>],
+  //   excludeStories is a Storybook configuration field that prevents our mocked state to be treated as a story. 
+  //   You can read more about this field in the Storybook documentation (https://storybook.js.org/docs/api/csf).
   excludeStories: /.*MockedState$/,
 };
 
-export const Default = {
-  decorators: [
-    (story) => <Mockstore taskboxState={MockedState}>{story()}</Mockstore>,
+const Template = (args) => <TaskList {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+  tasks: MockedState.tasks,
+};
+
+export const PinnedTasks = Template.bind({});
+PinnedTasks.args = {
+  tasks: [
+    ...Default.args.tasks.slice(0, 5),
+    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
   ],
 };
 
-export const WithPinnedTasks = {
-  decorators: [
-    (story) => {
-      const pinnedtasks = [
-        ...MockedState.tasks.slice(0, 5),
-        { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-      ];
-
-      return (
-        <Mockstore
-          taskboxState={{
-            ...MockedState,
-            tasks: pinnedtasks,
-          }}
-        >
-          {story()}
-        </Mockstore>
-      );
-    },
-  ],
+export const Loading = Template.bind({});
+Loading.args = {
+  tasks: [],
+  status: 'loading',
 };
 
-export const Loading = {
-  decorators: [
-    (story) => (
-      <Mockstore
-        taskboxState={{
-          ...MockedState,
-          status: 'loading',
-        }}
-      >
-        {story()}
-      </Mockstore>
-    ),
-  ],
-};
-
-export const Empty = {
-  decorators: [
-    (story) => (
-      <Mockstore
-        taskboxState={{
-          ...MockedState,
-          tasks: [],
-        }}
-      >
-        {story()}
-      </Mockstore>
-    ),
-  ],
+export const Empty = Template.bind({});
+Empty.decorators = [
+  (story) => (
+    <Mockstore
+      taskboxState={{
+        ...MockedState,
+        tasks: [],
+      }}
+    >
+      {story()}
+    </Mockstore>
+  ),
+];
+Empty.args = {
+  tasks: [],
 };

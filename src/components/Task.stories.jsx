@@ -34,30 +34,21 @@ export const Default = {
   },
 };
 
-// export const Pinned = {
-//   args: {
-//     task: {
-//       ...Default.args.task,
-//       state: 'TASK_PINNED',
-//     },
-//   },
-// };
-
 export const Pinned = {
   args: {
     task: {
-      id: '2',
-      title: 'QA dropdown',
+      ...Default.args.task,
       state: 'TASK_PINNED',
     },
   },
 };
 
-// export const Archived = {
+// export const Pinned = {
 //   args: {
 //     task: {
-//       ...Default.args.task,
-//       state: 'TASK_ARCHIVED',
+//       id: '2',
+//       title: 'QA dropdown',
+//       state: 'TASK_PINNED',
 //     },
 //   },
 // };
@@ -65,30 +56,39 @@ export const Pinned = {
 export const Archived = {
   args: {
     task: {
-      id: '3',
-      title: 'Write schema for account menu',
+      ...Default.args.task,
       state: 'TASK_ARCHIVED',
     },
   },
 };
 
-const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
-
-// export const LongTitle = {
+// export const Archived = {
 //   args: {
 //     task: {
-//       ...Default.args.task,
-//       title: longTitleString,
+//       id: '3',
+//       title: 'Write schema for account menu',
+//       state: 'TASK_ARCHIVED',
 //     },
 //   },
 // };
 
+const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
+
 export const LongTitle = {
   args: {
     task: {
-      id: '4',
+      ...Default.args.task,
       title: longTitleString,
-      state: 'TASK_INBOX',
     },
   },
 };
+
+// export const LongTitle = {
+//   args: {
+//     task: {
+//       id: '4',
+//       title: longTitleString,
+//       state: 'TASK_INBOX',
+//     },
+//   },
+// };
