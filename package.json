@@ -27,9 +27,15 @@
     "build-storybook": "storybook build",
     "test-storybook": "test-storybook",
     "init-msw": "msw init public/",
-    "chromatic": "npx chromatic --project-token=chpt_690c2628cbd7006"
+    "chromatic": "npx chromatic --project-token=chpt_690c2628cbd7006",
+    "screenDiff": "npx playwright test",
+    "screenDiff-ci": "npx playwright test -c playwright.config.ci.ts",
+    "screenDiff-update": "npx playwright test --update-snapshots",
+    "screenDiff-docker": "concurrently -k \"yarn run storybook\" \"docker run -w /tmp --ipc=host --entrypoint=npx --mount type=bind,src=$(pwd),dst=/tmp --rm mcr.microsoft.com/playwright:v1.50.1-noble playwright test\"",
+    "screenDiff-update-docker": "concurrently -k \"yarn run storybook\" \"docker run -w /tmp --ipc=host --entrypoint=npx --mount type=bind,src=$(pwd),dst=/tmp --rm mcr.microsoft.com/playwright:v1.50.1-noble playwright test --update-snapshots\""
   },
   "devDependencies": {
+    "@playwright/test": "^1.50.1",
     "@storybook/addon-a11y": "^8.5.4",
     "@storybook/addon-essentials": "^8.5.4",
     "@storybook/addon-interactions": "^8.5.4",
@@ -39,6 +45,7 @@
     "@storybook/react-vite": "^8.5.4",
     "@storybook/test": "^8.5.4",
     "@storybook/test-runner": "^0.21.0",
+    "@types/node": "^22.13.4",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",
