@@ -1,35 +1,20 @@
-
-import Task from './Task';
-
-import { useDispatch, useSelector } from 'react-redux';
-
-import { updateTaskState } from '../lib/store';
-
-export default function TaskList() {
-  // We're retrieving our state from the store
-  const tasks = useSelector((state) => {
-    const tasksInOrder = [
-      ...state.taskbox.tasks.filter((t) => t.state === 'TASK_PINNED'),
-      ...state.taskbox.tasks.filter((t) => t.state !== 'TASK_PINNED'),
-    ];
-    const filteredTasks = tasksInOrder.filter(
-      (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
-    );
-    return filteredTasks;
-  });
-
-  const { status } = useSelector((state) => state.taskbox);
-
-  const dispatch = useDispatch();
-
-  const pinTask = (value) => {
-    // We're dispatching the Pinned event back to our store
-    dispatch(updateTaskState({ id: value, newTaskState: 'TASK_PINNED' }));
+import PropTypes from "prop-types";
+import Task from "./Task";
+export default function TaskList({
+  loading,
+  tasks,
+  onTogglePinTask,
+  onArchiveTask,
+  onEditTitle,
+  onDeleteTask,
+}) {
+  const events = {
+    onTogglePinTask,
+    onArchiveTask,
+    onEditTitle,
+    onDeleteTask,
   };
-  const archiveTask = (value) => {
-    // We're dispatching the Archive event back to our store
-    dispatch(updateTaskState({ id: value, newTaskState: 'TASK_ARCHIVED' }));
-  };
+
   const LoadingRow = (
     <div className="loading-item">
       <span className="glow-checkbox" />
@@ -38,7 +23,7 @@ export default function TaskList() {
       </span>
     </div>
   );
-  if (status === 'loading') {
+  if (loading) {
     return (
       <div className="list-items" data-testid="loading" key={"loading"}>
         {LoadingRow}
@@ -61,17 +46,34 @@ export default function TaskList() {
       </div>
     );
   }
+  const tasksInOrder = [
+    ...tasks.filter((t) => t.state === "TASK_PINNED"),
+    ...tasks.filter((t) => t.state !== "TASK_PINNED"),
+  ];
 
   return (
-    <div className="list-items" data-testid="success" key={"success"}>
-      {tasks.map((task) => (
-        <Task
-          key={task.id}
-          task={task}
-          onPinTask={(task) => pinTask(task)}
-          onArchiveTask={(task) => archiveTask(task)}
-        />
+    <div
+      className="list-items"
+      data-testid="success"
+      key={"success"}
+      role="list"
+      aria-label="tasks"
+    >
+      {tasksInOrder.map((task) => (
+        <Task key={task.id} task={task} {...events} />
       ))}
     </div>
   );
 }
+TaskList.propTypes = {
+  loading: PropTypes.bool,
+  tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
+  onTogglePinTask: PropTypes.func.isRequired,
+  onArchiveTask: PropTypes.func.isRequired,
+  onEditTitle: PropTypes.func.isRequired,
+  onDeleteTask: PropTypes.func.isRequired,
+};
+
+TaskList.defaultProps = {
+  loading: false,
+};

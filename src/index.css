@@ -243,6 +243,39 @@ textarea {
   content: "\e608";
 }
 
+.icon-bell:before {
+  content: "\e662";
+}
+
+/* delete button */
+.delete-button {
+  width: 3rem;
+  height: 3rem;
+  background: transparent;
+  border: none;
+  text-align: center;
+  transition: all 200ms ease-in;
+  color: #eee;
+  font-size: 16px;
+  line-height: 3rem;
+  outline: none;
+}
+.delete-button:hover {
+  color: #ff4400;
+}
+.delete-button:focus {
+  outline-color: transparent;
+}
+
+.pin-button:active {
+  color: #ff4400;
+}
+
+.icon-trash:before {
+  content: "\e628";
+}
+/* delete button */
+
 .icon-face-sad:before {
   content: "\e60f";
 }
@@ -326,8 +359,12 @@ textarea {
   color: #2cc5d2;
 }
 
+.list-item.TASK_PINNED .icon-bell {
+  color: #2cc5d2;
+}
+
 .list-item.TASK_ARCHIVED input[type="text"] {
-  color: #4a5568;;
+  color: #4a5568;
   text-decoration: line-through;
 }
 

@@ -5,7 +5,7 @@
 </p>
 
 <h1 align="center">
-  Chromatic's Intro to Storybook React template
+  Chromatic's UI Testing Handbook React template
 </h1>
 
 This template ships with the main React and Storybook configuration files you'll need to get up and running fast.
@@ -18,7 +18,7 @@ This template ships with the main React and Storybook configuration files you'll
 
     ```shell
     # Clone the template
-    npx degit chromaui/intro-storybook-react-template taskbox
+    npx degit chromaui/ui-testing-handbook-react-template ui-testing-guide-code
     ```
 
 1.  **Install the dependencies.**
@@ -27,7 +27,7 @@ This template ships with the main React and Storybook configuration files you'll
 
     ```shell
     # Navigate to the directory
-    cd taskbox/
+    cd ui-testing-guide-code/
 
     # Install the dependencies
     yarn
@@ -35,7 +35,7 @@ This template ships with the main React and Storybook configuration files you'll
 
 1.  **Open the source code and start editing!**
 
-    Open the `taskbox` directory in your code editor of choice and building your first component!
+    Open the `ui-testing-guide-code` directory in your code editor of choice and building your first component!
 
 1.  **Browse your stories!**
 
@@ -50,10 +50,8 @@ A quick look at the top-level files and directories included with this template.
     ├── node_modules
     ├── public
     ├── src
-    ├── .eslintrc.cjs
     ├── .gitignore
     ├── .index.html
-    ├── LICENSE
     ├── package.json
     ├── yarn.lock
     ├── vite.config.js
@@ -67,21 +65,17 @@ A quick look at the top-level files and directories included with this template.
 
 4.  **`src`**: This directory will contain all of the code related to what you will see on your application.
 
-5.  **`.eslintrc.cjs`**: This file is the configuration file for [ESLint](https://eslint.org/), a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code.
+5.  **`.gitignore`**: This file tells git which files it should not track or maintain during the development process of your project.
 
-6.  **`.gitignore`**: This file tells git which files it should not track or maintain during the development process of your project.
+6.  **`.index.html`**: This is the HTML page that is served when generating a development or production build.
 
-7.  **`.index.html`**: This is the HTML page that is served when generating a development or production build.
+7.  **`package.json`**: Standard manifest file for Node.js projects, which typically includes project specific metadata (such as the project's name, the author among other information). It's based on this file that npm will know which packages are necessary to the project.
 
-8.  **`LICENSE`**: The template is licensed under the MIT licence.
+8.  **`yarn.lock`**: This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(Do not change it manually).**
 
-9.  **`package.json`**: Standard manifest file for Node.js projects, which typically includes project specific metadata (such as the project's name, the author among other information). It's based on this file that npm will know which packages are necessary to the project.
+9.  **`vite.config.js`**: This is the configuration file for [Vite](https://vitejs.dev/), a build tool that aims to provide a faster and leaner development experience for modern web projects.
 
-10. **`yarn.lock`**: This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(Do not change it manually).**
-
-11. **`vite.config.js`**: This is the configuration file for [Vite](https://vitejs.dev/), a build tool that aims to provide a faster and leaner development experience for modern web projects.
-
-12. **`README.md`**: A text file containing useful reference information about the project.
+10. **`README.md`**: A text file containing useful reference information about the project.
 
 ## Contribute
 

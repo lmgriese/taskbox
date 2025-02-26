@@ -1,5 +1,4 @@
-
-const { injectAxe, checkA11y } = require('axe-playwright');
+const { injectAxe, checkA11y } = require("axe-playwright");
 
 module.exports = {
   async preVisit(page) {
