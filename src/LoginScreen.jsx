@@ -24,6 +24,7 @@ const LoginForm = ({ onSubmit, ...props }) => (
           Email address
         </label>
         <input
+          data-testid="email"
           name="email"
           type="email"
           autoComplete="email"
@@ -42,6 +43,7 @@ const LoginForm = ({ onSubmit, ...props }) => (
         Password
       </label>
       <input
+        data-testid="password"
         name="password"
         type="password"
         id="password"
