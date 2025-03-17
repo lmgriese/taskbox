@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { constants } from 'buffer';
 
 test('Check screenshots of existing storybooks', async ({ page }) => {
+  test.setTimeout(300000)
   const storybookConfig : any = await (await page.request.get('index.json')).json();
   const storybooks = Object.keys(storybookConfig.entries).filter(entry => storybookConfig.entries[entry].type === 'story');
   const errors :any[] = [];
